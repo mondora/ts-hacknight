@@ -1,26 +1,31 @@
 import React, {Component} from 'react';
 import './App.css';
 import {Doughnut} from 'react-chartjs';
+import Chance from 'chance';
+
+const chance = new Chance();
 
 const teams = Array
-  .from(Array(Math.floor(Math.random() * 10) + 1)
-  .keys()).map((team, index) => 
+  .from(Array(chance.integer({min: 3, max: 8})).keys())
+  .map((team, index) => 
   ({
     name: `Team${index + 1}`,
     data: [
       {
-        value: Math.random() * 10,
+        value: chance.integer({min: 1, max: 20}),
         color:'#ffa16b',
         label: 'Costi'
       },
       {
-        value: Math.random() * 5,
+        value: chance.integer({min: 1, max: 5}),
         color: '#6bbcff',
         label: 'Ricavi'
       }
-    ]
+    ],
+    members: Array.from(Array(chance.integer({min: 1, max: 8})))
+      .map(() => chance.name())
   }));
-
+console.log(teams.map(team => team.members));
 class App extends Component {
   render() {
     return (
@@ -30,7 +35,12 @@ class App extends Component {
             <div className='team-name'>
               {team.name}
             </div>
-            <Doughnut className='team-chart' data={team.data} width='300' height='300'/>
+            <div className='team-info'>
+              <div className='team-members'>
+                {team.members.map(member => <p>{member}</p>)}
+              </div>
+              <Doughnut className='team-chart' data={team.data} width='300' height='300'/>
+            </div>
           </div>          
         ))}
       </div>

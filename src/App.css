@@ -9,7 +9,15 @@
   text-align: center;
   margin-bottom: 20px;
 }
+.team-info {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
 .team-chart {
   margin: auto;
-  display: block;
+}
+.team-members {
+  width: 200px;
+  text-align: right;
+  font-family: proximanova-light,helevetica,arial,sans-serif;
 }
