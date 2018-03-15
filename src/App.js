@@ -1,18 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import {Doughnut} from 'react-chartjs';
+
+const teams = Array
+  .from(Array(Math.floor(Math.random() * 10) + 1)
+  .keys()).map((team, index) => 
+  ({
+    name: `Team${index + 1}`,
+    data: [
+      {
+        value: Math.random() * 10,
+        color:'#ffa16b',
+        label: 'Costi'
+      },
+      {
+        value: Math.random() * 5,
+        color: '#6bbcff',
+        label: 'Ricavi'
+      }
+    ]
+  }));
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className='container'>
+        {teams.map(team => (
+          <div>
+            <div className='team-name'>
+              {team.name}
+            </div>
+            <Doughnut className='team-chart' data={team.data} width='300' height='300'/>
+          </div>          
+        ))}
       </div>
     );
   }
